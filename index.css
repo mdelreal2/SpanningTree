@@ -1,3 +1,7 @@
 body {
-    background-color: aqua;
+    background-color: rgb(255, 177, 75);
+}
+
+select.node_number_select {
+    /*background-color: aqua;*/
 }
