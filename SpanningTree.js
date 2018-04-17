@@ -13,3 +13,15 @@ function SpanningTreeNode(label)
     
     return node;
 }
+
+function initializeNodes()
+{
+    for (var i = 0; i < numNodes; i++)
+    {
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
+        var newNode = SpanningTreeNode(letter);
+        listOfNodes.push(newNode);
+        alert(newNode.rootIs);
+    }
+}

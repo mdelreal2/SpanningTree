@@ -1,13 +1,21 @@
+var numNodes = 0;
+var listOfNodes = [];
+
+
 //will be used to add event listeners to any DOMs that need to be interacted with
 window.onload = function()
 {
     //setup all element listeners
     var nodeNumberSelect = document.getElementById("_node_number_select");
+    numNodes = nodeNumberSelect.value;
+
     nodeNumberSelect.addEventListener("change", function(){
         //call logic to reset canvas and redisplay a network of X number of Nodes
         //apply algorithm to these nodes
-        alert("adf");
+        numNodes = nodeNumberSelect.value;
     });
+
+    initializeNodes();
 
 
     /*var newNode = SpanningTreeNode("A");
