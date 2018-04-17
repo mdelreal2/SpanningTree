@@ -18,7 +18,8 @@ window.onload = function()
     initializeNodes();
 
 
-    /*var newNode = SpanningTreeNode("A");
+    /*
+    var newNode = SpanningTreeNode("A");
     var pushNode = SpanningTreeNode("B");
     var pushNode2 = SpanningTreeNode("C");
 
@@ -28,7 +29,8 @@ window.onload = function()
     for (var i = 0; i < newNode.listOfLinkedNodes.length; i++)
     {
         alert(newNode.listOfLinkedNodes[i].rootIs);
-    }*/
+    }
+    */
 }
 
 function setup() 
@@ -48,3 +50,4 @@ function draw()
     // }
     // ellipse(mouseX, mouseY, 80, 80);
 }
+//hello
