@@ -13,7 +13,10 @@ window.onload = function()
     nodeNumberSelect.addEventListener("change", function(){
         //call logic to reset canvas and redisplay a network of X number of Nodes
         //apply algorithm to these nodes
-        numNodes = nodeNumberSelect.value;
+        if (numNodes)
+        {
+            numNodes = nodeNumberSelect.value;
+        }
     });
 
     initializeNodes();
