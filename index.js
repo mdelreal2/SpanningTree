@@ -1,5 +1,5 @@
-var numNodes = 0;
-
+var numNodes = 5;
+var c = 'A';
 var mapOfNodes = {};
 var isOverCircle;
 var backgroundColor;
@@ -8,7 +8,7 @@ var backgroundColor;
 window.onload = function()
 {
     //setup all element listeners
-    var nodeNumberSelect = document.getElementById("_node_number_select");
+    /*var nodeNumberSelect = document.getElementById("_node_number_select");
     numNodes = nodeNumberSelect.value;
 
     nodeNumberSelect.addEventListener("change", function(){
@@ -23,9 +23,10 @@ window.onload = function()
         {
             numNodes = nodeNumberSelect.value;
         }
-    });
-
+    });*/
     initializeNodes();
+    initializeConnection();
+    this.alert(JSON.stringify(mapOfNodes));
 
     /*
     var newNode = SpanningTreeNode("A");
