@@ -15,17 +15,15 @@ window.onload = function()
         //call logic to reset canvas and redisplay a network of X number of Nodes
         //apply algorithm to these nodes
         
-        deleteNodes();
-        numNodes = nodeNumberSelect.value;
-        initializeNodes();
-        
         if (nodeNumberSelect.value != 0)
         {
+            deleteNodes();
             numNodes = nodeNumberSelect.value;
+            initializeNodes();
         }
     });
 
-    initializeNodes();
+    // initializeNodes();
 
     /*
     var newNode = SpanningTreeNode("A");
@@ -57,9 +55,11 @@ function draw()
     // if the distance is less than the circle's radius
     if(distance < 50)
     {
-     isOverCircle = true;
-    } else {
-       isOverCircle = false;
+        isOverCircle = true;
+    } 
+    else
+    {
+        isOverCircle = false;
     }
      
     //draw a circle
@@ -69,20 +69,21 @@ function draw()
 
     if(isOverCircle == true)
     {
-      fill(100);
-      cursor(HAND);
-    } else {
-     fill(200); 
-     cursor(ARROW); 
+        fill(100);
+        cursor(HAND);
+    }
+    else
+    {
+        fill(200); 
+        cursor(ARROW); 
     }
     ellipse(200, 200, 100, 100);
 }
 
 function mousePressed()
 {
-  if(isOverCircle == true)
-  {
-    backgroundColor = color(random(255), random(255), random(255));
-  }
+    if(isOverCircle == true)
+    {
+        backgroundColor = color(random(255), random(255), random(255));
+    }
 }
-
