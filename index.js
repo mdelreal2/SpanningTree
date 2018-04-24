@@ -81,12 +81,24 @@ function drawCircles()
     //drawConnection(1,2)
 }
 
-function drawConnection(node1, node2)
+function drawConnection(map)
 {
+    //we are going to get a map [Letter as key, Node struct as value]
+    //get value associated with the key
+    //loop through that nodes list of connections
+    //draw lines
+    for(var [key, value] of map)
+    {
+        for(var i = 0;i<map.get(key).listOfLinkedNodes.length;i++)
+        {
+            //line(sixCord.get(map.get(key).whoAmI).x, 
+        }
+    }
+
     //draw a line from one node to the other
-    stroke('red');
+    /*stroke('red');
     strokeCap(ROUND);
-    line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);
+    line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);*/
 }
 
 function mousePressed() 
