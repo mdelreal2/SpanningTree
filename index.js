@@ -1,3 +1,4 @@
+var c;
 var sixCords = [];
 var numNodes = 0;
 var mapOfNodes = {};
@@ -7,7 +8,9 @@ var yCenter = window.innerHeight/2;
 //will be used to add event listeners to any DOMs that need to be interacted with
 window.onload = function()
 {
-    
+    xCenter = window.innerWidth/2;
+    yCenter = window.innerHeight/2;
+
     //setup all element listeners
     var nodeNumberSelect = document.getElementById("_node_number_select");
     numNodes = nodeNumberSelect.value;
@@ -36,23 +39,36 @@ window.onload = function()
 
     initializeNodes();
 };
-  
+
+
 function setup() 
 {
-    createCanvas(window.innerWidth, window.innerHeight);
+    c = createCanvas(window.innerWidth, window.innerHeight);
 }
   
 function windowResized() 
 {
+    xCenter = window.innerWidth/2;
+    yCenter = window.innerHeight/2;
     resizeCanvas(window.innerWidth, window.innerHeight);
 }
 
 function draw() 
 {   
+    //sTree();
+
     if(numNodes != 0)
     {
         drawCircles();
     }
+}
+
+function sTree()
+{   
+    stroke(0);
+    strokeWeight(0);
+    textSize(50);
+    text('Spanning Tree', xCenter, yCenter-350);
 }
 
 function drawCircles()
@@ -65,9 +81,9 @@ function drawCircles()
         //Draw a circles
         stroke(0);
         strokeWeight(2);
+        
         fill(150, 150, 150, 127);
         ellipse(sixCords[i].x, sixCords[i].y, 90, 90);
-
         textSize(32);
         textAlign(CENTER,CENTER);
         text(letter, sixCords[i].x, sixCords[i].y);
