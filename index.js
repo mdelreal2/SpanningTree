@@ -44,6 +44,10 @@ window.onload = function()
 
 <<<<<<< HEAD
     // initializeNodes();
+=======
+    initializeNodes();
+};
+>>>>>>> Circles
 
 
 function setup() 
