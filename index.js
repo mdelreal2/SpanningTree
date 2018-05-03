@@ -19,14 +19,11 @@ window.onload = function()
         //call logic to reset canvas and redisplay a network of X number of Nodes
         //apply algorithm to these nodes
         
-<<<<<<< HEAD
-=======
         clear();
         deleteNodes();
         numNodes = nodeNumberSelect.value;
         initializeNodes();
         
->>>>>>> Circles
         if (nodeNumberSelect.value != 0)
         {
             deleteNodes();
@@ -42,12 +39,8 @@ window.onload = function()
     sixCords.push({node:'E',x:xCenter-300,y:yCenter});
     sixCords.push({node:'F',x:xCenter+300,y:yCenter}); 
 
-<<<<<<< HEAD
-    // initializeNodes();
-=======
     initializeNodes();
 };
->>>>>>> Circles
 
 
 function setup() 
@@ -84,13 +77,6 @@ function drawCircles()
 {
     for(var i = 0; i < sixCords.length;i++)
     {
-<<<<<<< HEAD
-        isOverCircle = true;
-    } 
-    else
-    {
-        isOverCircle = false;
-=======
         var c = 'A';
         var letter = String.fromCharCode(c.charCodeAt(0) + i);
 
@@ -108,7 +94,6 @@ function drawCircles()
         {
             break;
         }
->>>>>>> Circles
     }
 
     //drawConnection(1,2)
@@ -122,20 +107,10 @@ function drawConnection(map)
     //draw lines
     for(var [key, value] of map)
     {
-<<<<<<< HEAD
-        fill(100);
-        cursor(HAND);
-    }
-    else
-    {
-        fill(200); 
-        cursor(ARROW); 
-=======
         for(var i = 0;i<map.get(key).listOfLinkedNodes.length;i++)
         {
             //line(sixCord.get(map.get(key).whoAmI).x, 
         }
->>>>>>> Circles
     }
 
     //draw a line from one node to the other
@@ -146,13 +121,6 @@ function drawConnection(map)
 
 function mousePressed() 
 {
-<<<<<<< HEAD
-    if(isOverCircle == true)
-    {
-        backgroundColor = color(random(255), random(255), random(255));
-    }
-}
-=======
     // Check if mouse is inside the circle
     for(var i = 0; i < sixCords.length;i++)
     {
@@ -166,4 +134,3 @@ function mousePressed()
   }
 
 
->>>>>>> Circles
