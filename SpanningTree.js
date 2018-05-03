@@ -8,6 +8,7 @@ function SpanningTreeNode(label)
         rootIs:label, 
         hopsToRoot:0, 
         sender:label,
+        whoAmI:label,
         listOfLinkedNodes:[]
     };
     

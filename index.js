@@ -1,12 +1,16 @@
+var c;
+var sixCords = [];
 var numNodes = 0;
-
 var mapOfNodes = {};
-var isOverCircle;
-var backgroundColor;
+var xCenter = window.innerWidth/2;
+var yCenter = window.innerHeight/2;
 
 //will be used to add event listeners to any DOMs that need to be interacted with
 window.onload = function()
 {
+    xCenter = window.innerWidth/2;
+    yCenter = window.innerHeight/2;
+
     //setup all element listeners
     var nodeNumberSelect = document.getElementById("_node_number_select");
     numNodes = nodeNumberSelect.value;
@@ -15,6 +19,14 @@ window.onload = function()
         //call logic to reset canvas and redisplay a network of X number of Nodes
         //apply algorithm to these nodes
         
+<<<<<<< HEAD
+=======
+        clear();
+        deleteNodes();
+        numNodes = nodeNumberSelect.value;
+        initializeNodes();
+        
+>>>>>>> Circles
         if (nodeNumberSelect.value != 0)
         {
             deleteNodes();
@@ -22,53 +34,91 @@ window.onload = function()
             initializeNodes();
         }
     });
+    
+    sixCords.push({node:'A',x:xCenter-175,y:yCenter-200});
+    sixCords.push({node:'B',x:xCenter+175,y:yCenter-200});
+    sixCords.push({node:'C',x:xCenter-175,y:yCenter+200});
+    sixCords.push({node:'D',x:xCenter+175,y:yCenter+200});
+    sixCords.push({node:'E',x:xCenter-300,y:yCenter});
+    sixCords.push({node:'F',x:xCenter+300,y:yCenter}); 
 
+<<<<<<< HEAD
     // initializeNodes();
 
-    /*
-    var newNode = SpanningTreeNode("A");
-    var pushNode = SpanningTreeNode("B");
-    var pushNode2 = SpanningTreeNode("C");
-
-    newNode.listOfLinkedNodes.push(pushNode);
-    newNode.listOfLinkedNodes.push(pushNode2);
-
-    for (var i = 0; i < newNode.listOfLinkedNodes.length; i++)
-    {
-        alert(newNode.listOfLinkedNodes[i].rootIs);
-    }
-    */
-}
 
 function setup() 
 {
-    createCanvas(640, 480);
-    backgroundColor = color(255, 255, 255);
+    c = createCanvas(window.innerWidth, window.innerHeight);
+}
+  
+function windowResized() 
+{
+    xCenter = window.innerWidth/2;
+    yCenter = window.innerHeight/2;
+    resizeCanvas(window.innerWidth, window.innerHeight);
 }
 
 function draw() 
-{
-    background(backgroundColor);
-    // get distance between mouse and circle
-    var distance = dist(mouseX, mouseY, 200, 200); 
-     
-    // if the distance is less than the circle's radius
-    if(distance < 50)
+{   
+    //sTree();
+
+    if(numNodes != 0)
     {
+        drawCircles();
+    }
+}
+
+function sTree()
+{   
+    stroke(0);
+    strokeWeight(0);
+    textSize(50);
+    text('Spanning Tree', xCenter, yCenter-350);
+}
+
+function drawCircles()
+{
+    for(var i = 0; i < sixCords.length;i++)
+    {
+<<<<<<< HEAD
         isOverCircle = true;
     } 
     else
     {
         isOverCircle = false;
-    }
-     
-    //draw a circle
-    ellipseMode(CENTER);
-    stroke(0);
-    strokeWeight(5);
+=======
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
 
-    if(isOverCircle == true)
+        //Draw a circles
+        stroke(0);
+        strokeWeight(2);
+        
+        fill(150, 150, 150, 127);
+        ellipse(sixCords[i].x, sixCords[i].y, 90, 90);
+        textSize(32);
+        textAlign(CENTER,CENTER);
+        text(letter, sixCords[i].x, sixCords[i].y);
+
+        if(i+1 == numNodes)
+        {
+            break;
+        }
+>>>>>>> Circles
+    }
+
+    //drawConnection(1,2)
+}
+
+function drawConnection(map)
+{
+    //we are going to get a map [Letter as key, Node struct as value]
+    //get value associated with the key
+    //loop through that nodes list of connections
+    //draw lines
+    for(var [key, value] of map)
     {
+<<<<<<< HEAD
         fill(100);
         cursor(HAND);
     }
@@ -76,14 +126,40 @@ function draw()
     {
         fill(200); 
         cursor(ARROW); 
+=======
+        for(var i = 0;i<map.get(key).listOfLinkedNodes.length;i++)
+        {
+            //line(sixCord.get(map.get(key).whoAmI).x, 
+        }
+>>>>>>> Circles
     }
-    ellipse(200, 200, 100, 100);
+
+    //draw a line from one node to the other
+    /*stroke('red');
+    strokeCap(ROUND);
+    line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);*/
 }
 
-function mousePressed()
+function mousePressed() 
 {
+<<<<<<< HEAD
     if(isOverCircle == true)
     {
         backgroundColor = color(random(255), random(255), random(255));
     }
 }
+=======
+    // Check if mouse is inside the circle
+    for(var i = 0; i < sixCords.length;i++)
+    {
+        var d = dist(mouseX, mouseY, sixCords[i].x, sixCords[i].y);
+        if (d < 45) 
+        {
+            //display info about the node
+            alert(sixCords[i].node + " - " + "x:" + sixCords[i].x + " y:" + sixCords[i].y);
+        }
+    }
+  }
+
+
+>>>>>>> Circles

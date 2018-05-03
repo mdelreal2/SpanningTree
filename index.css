@@ -1,5 +1,7 @@
-body {
-    background-color: rgb(255, 177, 75);
+html, body {
+    display: block;
+    overflow: hidden;
+    background-color: rgb(207, 205, 202);
 }
 
 select.node_number_select {
