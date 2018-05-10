@@ -50,12 +50,10 @@ function initializeConnection()
     var currentNode = 'A';
     
     //initialize connections to be able to have a path to the root
-    for (var i = 0; i < numNodes; i++)
+    for (var i = 0; i < numNodes - 1; i++)
     {
         //generate random number to index 'unusedNodes' between 0 and the length of the array
         var rand = Math.floor(Math.random() * unusedNodes.length);
-
-        
 
         //push the change to the origin
         mapOfNodes[currentNode].listOfLinkedNodes.push(unusedNodes[rand]);
@@ -80,7 +78,7 @@ function initializeConnection()
         for (var j = 0; j < numNodes; j++)
         {
             var c = 'A';
-            var letter = String.fromCharCode(c.charCodeAt(0) + i);
+            var letter = String.fromCharCode(c.charCodeAt(0) + j);
             availableConnections.push(letter);
         }
 
@@ -89,24 +87,23 @@ function initializeConnection()
         availableConnections.splice(index, 1);
 
         //remove all the impossible connections
-        // for (var j = 0; j < numNodes - 1; j++)
-        // {
-        //     var index = mapOfNodes[currentNode].listOfLinkedNodes.indexOf(availableConnections[j]);
-        //     //if a node is already connected to the currentNode, then delete it as a possible connection
-        //     if (index != -1)
-        //     {
-        //         availableConnections.splice(index, 1);
-        //     }
-        // }
+        for (var j = 0; j < numNodes - 1; j++)
+        {
+            var index = mapOfNodes[currentNode].listOfLinkedNodes.indexOf(availableConnections[j]);
+            
+            //var index = 0;
+            //if a node is already connected to the currentNode, then delete it as a possible connection
+            if (index != -1)
+            {
+                availableConnections.splice(index, 1);
+            }
+        }
 
-        currentNode = String.fromCharCode(currentNode + 1);
+        currentNode = String.fromCharCode(currentNode.charCodeAt(0) + 1);
     }
 
     alert(JSON.stringify(unusedNodes));
     alert(JSON.stringify(mapOfNodes));
-
-
-
 
 /*
     var done =false;
