@@ -55,7 +55,13 @@ function initializeConnection()
         //generate random number to index 'unusedNodes' between 0 and the length of the array
         var rand = Math.floor(Math.random() * unusedNodes.length);
 
+        
+
+        //push the change to the origin
         mapOfNodes[currentNode].listOfLinkedNodes.push(unusedNodes[rand]);
+
+        //push the change to the endpoint
+        mapOfNodes[unusedNodes[rand]].listOfLinkedNodes.push(currentNode);
 
         //have the next iteration of the loop start its connection from the random ending point
         currentNode = unusedNodes[rand];
@@ -64,10 +70,10 @@ function initializeConnection()
         unusedNodes.splice(rand, 1);   
     }
 
+    currentNode = 'A';
+
     for (var i = 0; i < numNodes; i++)
     {
-        currentNode = 'A';
-        
         var availableConnections = [];
 
         //push all available nodes to initialize a full list
@@ -79,13 +85,21 @@ function initializeConnection()
         }
 
         //remove the trivial case of being connected to itself
-
+        var index = availableConnections.indexOf(currentNode);
+        availableConnections.splice(index, 1);
 
         //remove all the impossible connections
-        for (var j = 0; j < availableConnections.length; j++)
-        {
-            
-        }
+        // for (var j = 0; j < numNodes - 1; j++)
+        // {
+        //     var index = mapOfNodes[currentNode].listOfLinkedNodes.indexOf(availableConnections[j]);
+        //     //if a node is already connected to the currentNode, then delete it as a possible connection
+        //     if (index != -1)
+        //     {
+        //         availableConnections.splice(index, 1);
+        //     }
+        // }
+
+        currentNode = String.fromCharCode(currentNode + 1);
     }
 
     alert(JSON.stringify(unusedNodes));
