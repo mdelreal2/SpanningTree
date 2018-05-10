@@ -1,5 +1,4 @@
 var numNodes = 5;
-var c = 'A';
 var mapOfNodes = {};
 var isOverCircle;
 var backgroundColor;
@@ -26,7 +25,6 @@ window.onload = function()
     });*/
     initializeNodes();
     initializeConnection();
-    this.alert(JSON.stringify(mapOfNodes));
 
     /*
     var newNode = SpanningTreeNode("A");

@@ -37,6 +37,64 @@ function initializeNodes()
 
 function initializeConnection()
 {
+    var unusedNodes = [];
+    
+    //starting at 1 because we don't want 'A' inside the array. Not allowing A the chance the chance to connect to itself
+    for (var i = 1; i < numNodes; i++)
+    {
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
+        unusedNodes.push(letter);
+    }
+
+    var currentNode = 'A';
+    
+    //initialize connections to be able to have a path to the root
+    for (var i = 0; i < numNodes; i++)
+    {
+        //generate random number to index 'unusedNodes' between 0 and the length of the array
+        var rand = Math.floor(Math.random() * unusedNodes.length);
+
+        mapOfNodes[currentNode].listOfLinkedNodes.push(unusedNodes[rand]);
+
+        //have the next iteration of the loop start its connection from the random ending point
+        currentNode = unusedNodes[rand];
+
+        //remove the new origin connection from the array so it cannot have a loopback issue
+        unusedNodes.splice(rand, 1);   
+    }
+
+    for (var i = 0; i < numNodes; i++)
+    {
+        currentNode = 'A';
+        
+        var availableConnections = [];
+
+        //push all available nodes to initialize a full list
+        for (var j = 0; j < numNodes; j++)
+        {
+            var c = 'A';
+            var letter = String.fromCharCode(c.charCodeAt(0) + i);
+            availableConnections.push(letter);
+        }
+
+        //remove the trivial case of being connected to itself
+
+
+        //remove all the impossible connections
+        for (var j = 0; j < availableConnections.length; j++)
+        {
+            
+        }
+    }
+
+    alert(JSON.stringify(unusedNodes));
+    alert(JSON.stringify(mapOfNodes));
+
+
+
+
+/*
     var done =false;
     var  currentNode=0;
     var unusedNodes=[];
@@ -76,7 +134,6 @@ function initializeConnection()
                 mapOfNodes[letter].listOfLinkedNodes.push(conenction);
                 mapOfNodes[conenction].listOfLinkedNodes.push(letter);
                 currentNode=rand;
-                debugger;
                 for(var j =0;j<unusedNodes.length;j++)
                 {
                     if(unusedNodes[j]==rand)
@@ -103,4 +160,5 @@ function initializeConnection()
         }
         // enshure that all nodes are connected
    }
+   */
 }
