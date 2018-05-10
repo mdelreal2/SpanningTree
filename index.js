@@ -80,7 +80,7 @@ function drawCircles()
         var c = 'A';
         var letter = String.fromCharCode(c.charCodeAt(0) + i);
 
-        //Draw a circles
+        //Draw a circle.
         stroke(0);
         strokeWeight(2);
         
@@ -109,14 +109,15 @@ function drawConnection(map)
     {
         for(var i = 0;i<map.get(key).listOfLinkedNodes.length;i++)
         {
-            //line(sixCord.get(map.get(key).whoAmI).x, 
+           line(sixCord.get(map.get(key).whoAmI).x, sixCord.get(map.get(key).whoAmI).y,
+                value.x, value.y);
         }
     }
 
     //draw a line from one node to the other
-    /*stroke('red');
+    stroke('red');
     strokeCap(ROUND);
-    line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);*/
+    line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);
 }
 
 function mousePressed() 
