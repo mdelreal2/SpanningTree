@@ -57,7 +57,9 @@ function initializeConnection()
 
         //push the change to the origin
         mapOfNodes[currentNode].listOfLinkedNodes.push(unusedNodes[rand]);
-
+//
+//
+//
         //push the change to the endpoint
         mapOfNodes[unusedNodes[rand]].listOfLinkedNodes.push(currentNode);
 
@@ -65,11 +67,14 @@ function initializeConnection()
         currentNode = unusedNodes[rand];
 
         //remove the new origin connection from the array so it cannot have a loopback issue
-        unusedNodes.splice(rand, 1);   
+        unusedNodes.splice(rand, 1);
     }
+
+    //unusedNodes should now be empty
 
     currentNode = 'A';
 
+    //add a random number of extra connections to the nodes for the algorthim to work with
     for (var i = 0; i < numNodes; i++)
     {
         var availableConnections = [];
@@ -86,24 +91,50 @@ function initializeConnection()
         var index = availableConnections.indexOf(currentNode);
         availableConnections.splice(index, 1);
 
-        //remove all the impossible connections
-        for (var j = 0; j < numNodes - 1; j++)
+        var deleteCounter = numNodes - 1;
+        //remove all the impossible connections :: numNodes - 1 becuase there is now one less possible connection after the trivial case
+        for (var j = 0; j < deleteCounter; j++)
         {
+            //alert(availableConnections.toString());
             var index = mapOfNodes[currentNode].listOfLinkedNodes.indexOf(availableConnections[j]);
-            
-            //var index = 0;
+
             //if a node is already connected to the currentNode, then delete it as a possible connection
             if (index != -1)
             {
-                availableConnections.splice(index, 1);
+                availableConnections.splice(j, 1);
+                j = j - 1;
+                deleteCounter = deleteCounter - 1;
             }
         }
 
+        //after only a list of possible connections exists, randomly pick a value between 0 and the # of possible connections to add to the current node
+        //TRY AND WEIGHT THE VALUE TO BE LOWER RATHER THAN ANY VALID VALUE
+        var rand = Math.floor(Math.random() * availableConnections.length);
+
+        for (var j = 0; j < rand; j++)
+        {
+            var randIndex = Math.floor(Math.random() * availableConnections.length);
+            var connectionValue = availableConnections[randIndex];
+
+            alert("connectionValue: " + connectionValue);
+
+            mapOfNodes[currentNode].listOfLinkedNodes.push(connectionValue);
+
+            alert(mapOfNodes[currentNode].listOfLinkedNodes.toString());
+
+            mapOfNodes[connectionValue].listOfLinkedNodes.push(currentNode);
+
+            alert(mapOfNodes[connectionValue].listOfLinkedNodes.toString());
+
+            //remove this possible connection from availableConnections
+            availableConnections.splice(randIndex, 1);
+        }
+
+        //move onto the next node for the next iteration of the loop
         currentNode = String.fromCharCode(currentNode.charCodeAt(0) + 1);
     }
 
-    alert(JSON.stringify(unusedNodes));
-    alert(JSON.stringify(mapOfNodes));
+    //alert(JSON.stringify(mapOfNodes));
 
 /*
     var done =false;
