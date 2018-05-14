@@ -36,5 +36,10 @@ function initializeNodes()
 
 function initializeConnection()
 {
-
+    var n1 = mapOfNodes[['A','B','C','D','E','F'][mapOfNodes.size * Math.random() | 0]];
+    do
+    {
+        var n1 = mapOfNodes[['A','B','C','D','E','F'][mapOfNodes.size * Math.random() | 0]];
+    } while (n1 == n2);
 }
+
