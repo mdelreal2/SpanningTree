@@ -28,11 +28,31 @@ window.onload = function()
             numNodes = nodeNumberSelect.value;
             initializeNodes();
             initializeConnection();
+            
         }
     });
-
+    //keystroke listener
+    window.onkeyup = function(e)
+     {
+        var key = e.keyCode ? e.keyCode : e.which;
+     
+        if (key == 32) 
+        {
+            for(var i =0; i<numNodes;i++)
+            {
+                applyPreAlgorithmScan();
+            }
+            
+            removeExtraConections();
+            redraw();
+            
+            
+        }
+     }
+     //end of listender
     initializeNodes();
     initializeConnection();
+    
 };
 
 function setup() 

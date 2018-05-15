@@ -12,7 +12,8 @@ function SpanningTreeNode(label)
         listOfLinkedNodes:[],
         nextStep:[3], //iAm, rootIs, hopsToRoot
         x: 0,
-        y: 0
+        y: 0,
+        bestRoot:label
     };
     
     return node;
@@ -162,64 +163,101 @@ function initializeConnection()
 
 function applyPreAlgorithmScan()
 {
-    var currentNode = 'A';
+    debugger;
+    var currentNode = 'B';
 
     //skip A
     for (var i = 1; i < numNodes; i++)
     {
         var lowestLetter = -1; //letter value of a node
-
-        for (var j = 0; j < mapOfNodes[currentNode].listOfLinkedNodes.length; j++)
+        if(mapOfNodes[currentNode].rootIs!='A')
         {
-            if (lowestLetter == -1)
+            for (var j = 0; j < mapOfNodes[currentNode].listOfLinkedNodes.length; j++)
             {
-                lowestLetter = mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs;
-            }
-            else if (mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs < lowestLetter)
-            {
-                lowestLetter = mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs;
-            }
-        }
-
-        
-        var numHops;
-        var bestChoice;
-
-        for (var j = 0; j < mapOfNodes[currentNode].listOfLinkedNodes.length; j++)
-        {
-            if (j == 0)
-            {
-                numHops = mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot;
-                bestChoice = j;
-            }
-            else if (mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs == lowestLetter)
-            {
-                if (numHops > mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot)
+                if (lowestLetter == -1)
                 {
-                    numHops = mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot;
-                    bestChoice = j;
+                    lowestLetter = mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs;
+                }
+                else if (mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs < lowestLetter)
+                {
+                    lowestLetter = mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs;
                 }
             }
-        }
-        
-        mapOfNodes[currentNode].nextStep[0] = mapOfNodes[bestChoice].iAm;
-        mapOfNodes[currentNode].nextStep[1] = mapOfNodes[bestChoice].rootIs;
-        mapOfNodes[currentNode].nextStep[2] = mapOfNodes[bestChoice].hopsToRoot;
+
+            
+            var numHops;
+            var bestChoice;
+
+            for (var j = 0; j < mapOfNodes[currentNode].listOfLinkedNodes.length; j++)
+            {
+                if (j == 0)
+                {
+                    numHops = mapOfNodes[mapOfNodes[currentNode].listOfLinkedNodes[j]].hopsToRoot;
+                    bestChoice = j;
+                }
+                else if (mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs == lowestLetter)
+                {
+                    if (numHops > mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot)
+                    {
+                        numHops = mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot;
+                        bestChoice = j;
+                    }
+                }
+            }
+            
+            mapOfNodes[currentNode].nextStep[0] = mapOfNodes[mapOfNodes[currentNode].listOfLinkedNodes[bestChoice]].iAm;
+            mapOfNodes[currentNode].nextStep[1] = mapOfNodes[mapOfNodes[currentNode].listOfLinkedNodes[bestChoice]].rootIs;
+            mapOfNodes[currentNode].nextStep[2] = mapOfNodes[mapOfNodes[currentNode].listOfLinkedNodes[bestChoice]].hopsToRoot;
+    }
 
         currentNode = String.fromCharCode(currentNode.charCodeAt(0) + 1);
     }
 
     for (var i = 1; i < numNodes; i++)
     {
-        mapOfNodes[i].rootIs = mapOfNodes[i].nextStep[1];
-        mapOfNodes[i].hopsToRoot = mapOfNodes[i].nextStep[2] + 1; //include itself
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
+        mapOfNodes[letter].rootIs = mapOfNodes[letter].nextStep[1];
+        mapOfNodes[letter].hopsToRoot = mapOfNodes[letter].nextStep[2] + 1; //include itself
     }
 }
-/*
+
 function removeExtraConections()
 {
+    var comparitor = 0;
+    //finds the best avalable path
     for(var i = 1 ;i<numNodes;i++ )
     {
-        
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
+        for(var j=0;j<mapOfNodes[letter].listOfLinkedNodes.length;j++)
+        {
+            if(j==0)
+            {
+                mapOfNodes[letter].bestRoot =mapOfNodes[letter].listOfLinkedNodes[j];
+                comparitor=mapOfNodes[mapOfNodes[letter].listOfLinkedNodes[j]].hopsToRoot;
+            }
+            else if(mapOfNodes[mapOfNodes[letter].listOfLinkedNodes[j]].hopsToRoot<comparitor)
+            {
+                mapOfNodes[letter].bestRoot =mapOfNodes[letter].listOfLinkedNodes[j];
+                comparitor=mapOfNodes[mapOfNodes[letter].listOfLinkedNodes[j]].hopsToRoot;
+            }
+        }
     }
-}*/
+    //clears previous values
+    
+    for(var i =0; i<numNodes;i++)
+    {
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
+        mapOfNodes[letter].listOfLinkedNodes=[];
+    }
+    //sets final connections 
+    for(var i =1; i<numNodes;i++)
+    {
+        var c = 'A';
+        var letter = String.fromCharCode(c.charCodeAt(0) + i);
+        mapOfNodes[letter].listOfLinkedNodes.push(mapOfNodes[letter].bestRoot);
+        mapOfNodes[mapOfNodes[letter].bestRoot].listOfLinkedNodes.push(letter);
+    }
+}
