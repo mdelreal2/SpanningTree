@@ -1,12 +1,13 @@
 var numNodes = 0;
 var mapOfNodes = {};
-var xCenter = window.innerWidth/2;
+var xCenter = window.innerWidth/4;
 var yCenter = window.innerHeight/2;
+var oldData;
 
 //will be used to add event listeners to any DOMs that need to be interacted with
 window.onload = function()
 {
-    xCenter = window.innerWidth/2;
+    xCenter = window.innerWidth/4;
     yCenter = window.innerHeight/2;
 
     //setup all element listeners
@@ -21,17 +22,19 @@ window.onload = function()
         deleteNodes();
         numNodes = nodeNumberSelect.value;
         initializeNodes();
-        
-        if (nodeNumberSelect.value != 0)
-        {
-            deleteNodes();
-            numNodes = nodeNumberSelect.value;
-            initializeNodes();
-        }
+        oldData = mapOfNodes;
+        initializeConnection();
+        drawDisplayInfo();
+        oldData = mapOfNodes;
+        //applyPreAlgorithmScan();
     });
 
     initializeNodes();
+    oldData = mapOfNodes;
     initializeConnection();
+    drawDisplayInfo();
+    oldData = mapOfNodes;
+    //applyPreAlgorithmScan();
 };
 
 function setup() 
@@ -41,7 +44,7 @@ function setup()
   
 function windowResized() 
 {
-    xCenter = window.innerWidth/2;
+    xCenter = window.innerWidth/4;
     yCenter = window.innerHeight/2;
     resizeCanvas(window.innerWidth, window.innerHeight);
 }
@@ -133,6 +136,52 @@ function mousePressed()
 
         currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + i);
     }
-  }
+}
 
 
+function drawDisplayInfo()
+{
+    var data = document.getElementById("_display_data");
+    data.style.fontSize = "20px";
+    
+    var stringBuilder = "";
+    var currentLetter = 'A';
+
+    for (var i = 0; i < numNodes; i++)
+    {
+        stringBuilder += currentLetter + ": ";
+
+        if (oldData[currentLetter].rootIs != mapOfNodes[currentLetter].rootIs)
+        {
+            stringBuilder += "Root Is: " + "<span style='color:#FF0000'>" + mapOfNodes[currentLetter].rootIs + "</span>" + "... ";
+        }
+        else
+        {
+            stringBuilder += "Root Is: " + mapOfNodes[currentLetter].rootIs + "... ";
+        }
+
+        if (oldData[currentLetter].hopsToRoot != mapOfNodes[currentLetter].hopsToRoot)
+        {
+            stringBuilder += "Root Is: " + "<span style='color:#FF0000'>" + mapOfNodes[currentLetter].hopsToRoot + "</span>" + "... ";
+        }
+        else
+        {
+            stringBuilder += "Hops To Root: " + mapOfNodes[currentLetter].hopsToRoot + "... ";
+        }
+
+        if (oldData[currentLetter].sender != mapOfNodes[currentLetter].sender)
+        {
+            stringBuilder += "Root Is: " + "<span style='color:#FF0000'>" + mapOfNodes[currentLetter].sender + "</span>" + "... ";
+        }
+        else
+        {
+            stringBuilder += "Sender: " + mapOfNodes[currentLetter].sender + "... ";
+        }
+
+        stringBuilder += '<br>';
+
+        currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+    }
+    
+    data.innerHTML = stringBuilder;
+}

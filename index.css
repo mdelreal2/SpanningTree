@@ -1,9 +1,23 @@
 html, body {
     display: block;
     overflow: hidden;
-    background-color: rgb(207, 205, 202);
+    /*background-color: rgb(207, 205, 202);*/
+    background-color: skyblue;
+
 }
 
 select.node_number_select {
     /*background-color: aqua;*/
+}
+
+div.display_data_container {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: rgb(209, 209, 209);
+}
+
+p {
+    text-align: left;
 }

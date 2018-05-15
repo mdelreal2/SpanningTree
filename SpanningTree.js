@@ -34,32 +34,32 @@ function initializeNodes()
         switch(letter)
         {
             case 'A':
-                newNode.x = xCenter - 175;
+                newNode.x = xCenter - 150;
                 newNode.y = yCenter - 200;
                 break;
             
             case 'B':
-                newNode.x = xCenter + 175;
+                newNode.x = xCenter + 150;
                 newNode.y = yCenter - 200;
                 break;
 
             case 'C':
-                newNode.x = xCenter - 175;
+                newNode.x = xCenter - 150;
                 newNode.y = yCenter + 200;
                 break;
 
             case 'D':
-                newNode.x = xCenter + 175;
+                newNode.x = xCenter + 150;
                 newNode.y = yCenter + 200;
                 break;
 
             case 'E':
-                newNode.x = xCenter - 300;
+                newNode.x = xCenter - 250;
                 newNode.y = yCenter + 0;
                 break;
 
             case 'F':
-                newNode.x = xCenter + 300;
+                newNode.x = xCenter + 250;
                 newNode.y = yCenter + 0;
                 break;
         }
