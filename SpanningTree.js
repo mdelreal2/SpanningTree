@@ -39,7 +39,8 @@ function initializeConnection()
 {
     var unusedNodes = [];
     
-    //starting at 1 because we don't want 'A' inside the array. Not allowing A the chance the chance to connect to itself
+    //starting at 1 because we don't want 'A' inside the array. Not allowing A the
+    //chance to connect to itself.
     for (var i = 1; i < numNodes; i++)
     {
         var c = 'A';
@@ -57,9 +58,9 @@ function initializeConnection()
 
         //push the change to the origin
         mapOfNodes[currentNode].listOfLinkedNodes.push(unusedNodes[rand]);
-//
-//
-//
+
+
+
         //push the change to the endpoint
         mapOfNodes[unusedNodes[rand]].listOfLinkedNodes.push(currentNode);
 
@@ -137,17 +138,17 @@ function initializeConnection()
     //alert(JSON.stringify(mapOfNodes));
 
 /*
-    var done =false;
-    var  currentNode=0;
-    var unusedNodes=[];
-    var counter =0;
+    var done = false;
+    var currentNode = 0;
+    var unusedNodes = [];
+    var counter = 0;
     for(var i=1;i<numNodes;i++)
     {
         unusedNodes.push(i);
     }
     while(done ==false)
-   {
-       counter=counter+1;
+    {
+        counter=counter+1;
         var letter = String.fromCharCode(c.charCodeAt(0) + currentNode);
         var rand = Math.floor(Math.random() * 10);
         var connection_num = 1;
@@ -194,13 +195,13 @@ function initializeConnection()
                 mapOfNodes[letter].listOfLinkedNodes.push(conenction);
                 mapOfNodes[conenction].listOfLinkedNodes.push(letter);
             }
-            done =true;
+            done = true;
         }
         else if(unusedNodes.length==0)
         {
             done = true;
         }
-        // enshure that all nodes are connected
+        // ensure that all nodes are connected
    }
    */
 }
