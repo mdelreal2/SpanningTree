@@ -66,7 +66,6 @@ function initializeNodes()
 
         mapOfNodes[letter] = newNode;
     }
-
 }
 
 function initializeConnection()

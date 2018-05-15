@@ -34,7 +34,6 @@ window.onload = function()
     initializeConnection();
 };
 
-
 function setup() 
 {
     c = createCanvas(window.innerWidth, window.innerHeight);
