@@ -23,12 +23,14 @@ window.onload = function()
         deleteNodes();
         numNodes = nodeNumberSelect.value;
         initializeNodes();
+        initializeConnection();
         
         if (nodeNumberSelect.value != 0)
         {
             deleteNodes();
             numNodes = nodeNumberSelect.value;
             initializeNodes();
+            initializeConnection();
         }
     });
     
@@ -39,7 +41,7 @@ window.onload = function()
     sixCords.push({node:'E',x:xCenter-300,y:yCenter});
     sixCords.push({node:'F',x:xCenter+300,y:yCenter}); 
 
-    initializeNodes();
+    //initializeNodes();
 };
 
 
@@ -57,12 +59,10 @@ function windowResized()
 
 function draw() 
 {   
-    //sTree();
-
     if(numNodes != 0)
     {
         drawCircles();
-        drawConnection();
+        drawConnections();
     }
 }
 
@@ -96,28 +96,25 @@ function drawCircles()
             break;
         }
     }
-
-    //drawConnection(1,2)
 }
 
-function drawConnection(map)
+function drawConnections()
 {
-    //we are going to get a map [Letter as key, Node struct as value]
-    //get value associated with the key
-    //loop through that nodes list of connections
-    //draw lines
     for(var key in mapOfNodes)
     {
-        alert(key);
-        alert(mapOfNodes[key].listOflinkedNodes.length);
-        //line(sixCord.get(mapOfNodes.get(key).iAm).x, sixCords.get(mapOfNodes.get(key).listOfLinkedNodes[i]).y);
+        var letterKey = mapOfNodes[key].iAm;
+        var xCord1 = sixCords[letterKey].x;
+        var yCord1 = sixCords[letterKey].y;
+
+        for(var i = 0; i<mapOfNodes[key].listOfLinkedNodes.length;i++)
+        {   
+            var linkedLetter = mapOfNodes[key].listOfLinkedNodes[i];
+            var xCord2 = sixCords[linkedLetter].x;
+            var yCord2 = sixCords[linkedLetter].y;
+            line(xCord1, yCord1, xCord2, yCord2);
+        }
     }
 
-
-    //draw a line from one node to the other
-    /*stroke('red');
-    strokeCap(ROUND);
-    line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);*/
 }
 
 function mousePressed() 
