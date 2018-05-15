@@ -87,12 +87,11 @@ function drawCircles()
         // }
     }
 
-    //drawConnection(mapOfNodes);
+    drawConnection();
 }
 
-function drawConnection(mapOfNodes)
+function drawConnection()
 {
-    alert("Asfa");
     //we are going to get a map [Letter as key, Node struct as value]
     //get value associated with the key
     //loop through that nodes list of connections
@@ -104,11 +103,11 @@ function drawConnection(mapOfNodes)
     {
         for (var j = 0; j < mapOfNodes[currentLetter].listOfLinkedNodes.length; j++)
         {
-            //debugger;
-            line(mapOfNodes[currentLetter].x, mapOfNodes[currentLetter].y, mapOfNodes[currentLetter].listOfLinkedNodes[j].x, mapOfNodes[currentLetter].listOfLinkedNodes[j].y);
+            var connection = mapOfNodes[currentLetter].listOfLinkedNodes[j];
+            line(mapOfNodes[currentLetter].x, mapOfNodes[currentLetter].y, mapOfNodes[connection].x, mapOfNodes[connection].y);
         }
 
-        currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + i);
+        currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
     }
 
     //draw a line from one node to the other
