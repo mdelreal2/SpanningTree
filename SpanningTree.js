@@ -9,7 +9,8 @@ function SpanningTreeNode(label)
         rootIs:label, 
         hopsToRoot:0, 
         sender:label,
-        listOfLinkedNodes:[]
+        listOfLinkedNodes:[],
+        nextStep:[3] //iAm, rootIs, hopsToRoot
     };
     
     return node;
@@ -29,9 +30,6 @@ function initializeNodes()
         var newNode = SpanningTreeNode(letter);
 
         mapOfNodes[letter] = newNode;
-        
-
-        //alert(newNode.rootIs);
     }
 }
 
@@ -57,9 +55,7 @@ function initializeConnection()
 
         //push the change to the origin
         mapOfNodes[currentNode].listOfLinkedNodes.push(unusedNodes[rand]);
-//
-//
-//
+  
         //push the change to the endpoint
         mapOfNodes[unusedNodes[rand]].listOfLinkedNodes.push(currentNode);
 
@@ -116,15 +112,9 @@ function initializeConnection()
             var randIndex = Math.floor(Math.random() * availableConnections.length);
             var connectionValue = availableConnections[randIndex];
 
-            alert("connectionValue: " + connectionValue);
-
             mapOfNodes[currentNode].listOfLinkedNodes.push(connectionValue);
 
-            alert(mapOfNodes[currentNode].listOfLinkedNodes.toString());
-
             mapOfNodes[connectionValue].listOfLinkedNodes.push(currentNode);
-
-            alert(mapOfNodes[connectionValue].listOfLinkedNodes.toString());
 
             //remove this possible connection from availableConnections
             availableConnections.splice(randIndex, 1);
@@ -133,74 +123,59 @@ function initializeConnection()
         //move onto the next node for the next iteration of the loop
         currentNode = String.fromCharCode(currentNode.charCodeAt(0) + 1);
     }
+}
 
-    //alert(JSON.stringify(mapOfNodes));
+function applyPreAlgorithmScan()
+{
+    var currentNode = 'A';
 
-/*
-    var done =false;
-    var  currentNode=0;
-    var unusedNodes=[];
-    var counter =0;
-    for(var i=1;i<numNodes;i++)
+    //skip A
+    for (var i = 1; i < numNodes; i++)
     {
-        unusedNodes.push(i);
-    }
-    while(done ==false)
-   {
-       counter=counter+1;
-        var letter = String.fromCharCode(c.charCodeAt(0) + currentNode);
-        var rand = Math.floor(Math.random() * 10);
-        var connection_num = 1;
-        if(rand<3)
+        var lowestLetter = -1; //letter value of a node
+
+        for (var j = 0; j < mapOfNodes[currentNode].listOfLinkedNodes.length; j++)
         {
-            connection_num=2;
-            if(rand<2)
+            if (lowestLetter == -1)
             {
-                connection_num=3;
-                if(rand<1)
-                    connection_num=4;
+                lowestLetter = mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs;
+            }
+            else if (mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs < lowestLetter)
+            {
+                lowestLetter = mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs;
             }
         }
-        //rand is now set to a random connection value 
-        
-        for(var i=0;i<connection_num;i++)
+
+        var numHops;
+        var bestChoice;
+
+        for (var j = 0; j < mapOfNodes[currentNode].listOfLinkedNodes.length; j++)
         {
-            rand=  Math.floor(Math.random() * numNodes);
-            var conenction = String.fromCharCode(c.charCodeAt(0) + rand);
-            if(mapOfNodes[letter].listOfLinkedNodes.includes(conenction)||letter==conenction)
+            if (j == 0)
             {
-                i = i-1;
+                numHops = mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot;
+                bestChoice = j;
             }
-            else
+            else if (mapOfNodes[currentNode].listOfLinkedNodes[j].rootIs == lowestLetter)
             {
-                mapOfNodes[letter].listOfLinkedNodes.push(conenction);
-                mapOfNodes[conenction].listOfLinkedNodes.push(letter);
-                currentNode=rand;
-                for(var j =0;j<unusedNodes.length;j++)
+                if (numHops > mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot)
                 {
-                    if(unusedNodes[j]==rand)
-                    {
-                        unusedNodes.splice(j,1);
-                    }
+                    numHops = mapOfNodes[currentNode].listOfLinkedNodes[j].hopsToRoot;
+                    bestChoice = j;
                 }
-                //this will crate atree not a map figure out how to fix this
             }
         }
-        if(counter == 6)
-        {
-            for(var i=0;i<unusedNodes.length();i++)
-            {
-                rand=  Math.floor(Math.random() * unusedNodes[i]-1);
-                mapOfNodes[letter].listOfLinkedNodes.push(conenction);
-                mapOfNodes[conenction].listOfLinkedNodes.push(letter);
-            }
-            done =true;
-        }
-        else if(unusedNodes.length==0)
-        {
-            done = true;
-        }
-        // enshure that all nodes are connected
-   }
-   */
+        
+        mapOfNodes[currentNode].nextStep[0] = mapOfNodes[bestChoice].iAm;
+        mapOfNodes[currentNode].nextStep[1] = mapOfNodes[bestChoice].rootIs;
+        mapOfNodes[currentNode].nextStep[2] = mapOfNodes[bestChoice].hopsToRoot;
+
+        currentNode = String.fromCharCode(currentNode.charCodeAt(0) + 1);
+    }
+
+    for (var i = 1; i < numNodes; i++)
+    {
+        mapOfNodes[i].rootIs = mapOfNodes[i].nextStep[1];
+        mapOfNodes[i].hopsToRoot = mapOfNodes[i].nextStep[2] + 1; //include itself
+    }
 }
