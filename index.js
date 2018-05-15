@@ -62,6 +62,7 @@ function draw()
     if(numNodes != 0)
     {
         drawCircles();
+        drawConnection();
     }
 }
 
@@ -105,13 +106,13 @@ function drawConnection(map)
     //get value associated with the key
     //loop through that nodes list of connections
     //draw lines
-    for(var [key, value] of map)
+    for(var key in mapOfNodes)
     {
-        for(var i = 0;i<map.get(key).listOfLinkedNodes.length;i++)
-        {
-            //line(sixCord.get(map.get(key).whoAmI).x, 
-        }
+        alert(key);
+        alert(mapOfNodes[key].listOflinkedNodes.length);
+        //line(sixCord.get(mapOfNodes.get(key).iAm).x, sixCords.get(mapOfNodes.get(key).listOfLinkedNodes[i]).y);
     }
+
 
     //draw a line from one node to the other
     /*stroke('red');
