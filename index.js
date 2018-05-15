@@ -27,6 +27,7 @@ window.onload = function()
             deleteNodes();
             numNodes = nodeNumberSelect.value;
             initializeNodes();
+            initializeConnection();
         }
     });
 
@@ -98,7 +99,7 @@ function drawConnection()
     //draw lines
 
     var currentLetter = 'A';
-
+    
     for (var i = 0; i < numNodes; i++)
     {
         for (var j = 0; j < mapOfNodes[currentLetter].listOfLinkedNodes.length; j++)
@@ -115,7 +116,7 @@ function drawConnection()
     strokeCap(ROUND);
     line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);*/
 }
-
+/*
 function mousePressed() 
 {
     var currentLetter = 'A';
@@ -134,5 +135,5 @@ function mousePressed()
         currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + i);
     }
   }
-
+*/
 

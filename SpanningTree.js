@@ -215,3 +215,11 @@ function applyPreAlgorithmScan()
         mapOfNodes[i].hopsToRoot = mapOfNodes[i].nextStep[2] + 1; //include itself
     }
 }
+/*
+function removeExtraConections()
+{
+    for(var i = 1 ;i<numNodes;i++ )
+    {
+        
+    }
+}*/
