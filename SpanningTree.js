@@ -146,6 +146,7 @@ function applyPreAlgorithmScan()
             }
         }
 
+        
         var numHops;
         var bestChoice;
 
