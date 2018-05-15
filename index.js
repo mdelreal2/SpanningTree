@@ -1,5 +1,3 @@
-var c;
-var sixCords = [];
 var numNodes = 0;
 var mapOfNodes = {};
 var xCenter = window.innerWidth/2;
@@ -18,7 +16,7 @@ window.onload = function()
     nodeNumberSelect.addEventListener("change", function(){
         //call logic to reset canvas and redisplay a network of X number of Nodes
         //apply algorithm to these nodes
-        
+
         clear();
         deleteNodes();
         numNodes = nodeNumberSelect.value;
@@ -31,15 +29,9 @@ window.onload = function()
             initializeNodes();
         }
     });
-    
-    sixCords.push({node:'A',x:xCenter-175,y:yCenter-200});
-    sixCords.push({node:'B',x:xCenter+175,y:yCenter-200});
-    sixCords.push({node:'C',x:xCenter-175,y:yCenter+200});
-    sixCords.push({node:'D',x:xCenter+175,y:yCenter+200});
-    sixCords.push({node:'E',x:xCenter-300,y:yCenter});
-    sixCords.push({node:'F',x:xCenter+300,y:yCenter}); 
 
     initializeNodes();
+    initializeConnection();
 };
 
 
@@ -75,7 +67,7 @@ function sTree()
 
 function drawCircles()
 {
-    for(var i = 0; i < sixCords.length;i++)
+    for(var i = 0; i < numNodes; i++)
     {
         var c = 'A';
         var letter = String.fromCharCode(c.charCodeAt(0) + i);
@@ -85,32 +77,39 @@ function drawCircles()
         strokeWeight(2);
         
         fill(150, 150, 150, 127);
-        ellipse(sixCords[i].x, sixCords[i].y, 90, 90);
+        ellipse(mapOfNodes[letter].x, mapOfNodes[letter].y, 90, 90);
         textSize(32);
         textAlign(CENTER,CENTER);
-        text(letter, sixCords[i].x, sixCords[i].y);
+        text(letter, mapOfNodes[letter].x, mapOfNodes[letter].y);
 
-        if(i+1 == numNodes)
-        {
-            break;
-        }
+        // if(i+1 == numNodes)
+        // {
+        //     break;
+        // }
     }
 
-    //drawConnection(1,2)
+    //drawConnection(mapOfNodes);
 }
 
-function drawConnection(map)
+function drawConnection(mapOfNodes)
 {
+    alert("Asfa");
     //we are going to get a map [Letter as key, Node struct as value]
     //get value associated with the key
     //loop through that nodes list of connections
     //draw lines
-    for(var [key, value] of map)
+
+    var currentLetter = 'A';
+
+    for (var i = 0; i < numNodes; i++)
     {
-        for(var i = 0;i<map.get(key).listOfLinkedNodes.length;i++)
+        for (var j = 0; j < mapOfNodes[currentLetter].listOfLinkedNodes.length; j++)
         {
-            line(sixCord.get(map.get(key).whoAmI).x); 
+            //debugger;
+            line(mapOfNodes[currentLetter].x, mapOfNodes[currentLetter].y, mapOfNodes[currentLetter].listOfLinkedNodes[j].x, mapOfNodes[currentLetter].listOfLinkedNodes[j].y);
         }
+
+        currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + i);
     }
 
     //draw a line from one node to the other
@@ -121,15 +120,20 @@ function drawConnection(map)
 
 function mousePressed() 
 {
+    var currentLetter = 'A';
+
     // Check if mouse is inside the circle
-    for(var i = 0; i < sixCords.length;i++)
+    for(var i = 0; i < numNodes; i++)
     {
-        var d = dist(mouseX, mouseY, sixCords[i].x, sixCords[i].y);
+        var d = dist(mouseX, mouseY, mapOfNodes[currentLetter].x, mapOfNodes[currentLetter].y);
+
         if (d < 45) 
         {
             //display info about the node
-            alert(sixCords[i].node + " - " + "x:" + sixCords[i].x + " y:" + sixCords[i].y);
+            alert(mapOfNodes[currentLetter].iAm);
         }
+
+        currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + i);
     }
   }
 

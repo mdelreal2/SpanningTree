@@ -10,7 +10,9 @@ function SpanningTreeNode(label)
         hopsToRoot:0, 
         sender:label,
         listOfLinkedNodes:[],
-        nextStep:[3] //iAm, rootIs, hopsToRoot
+        nextStep:[3], //iAm, rootIs, hopsToRoot
+        x: 0,
+        y: 0
     };
     
     return node;
@@ -29,8 +31,42 @@ function initializeNodes()
         var letter = String.fromCharCode(c.charCodeAt(0) + i);
         var newNode = SpanningTreeNode(letter);
 
+        switch(letter)
+        {
+            case 'A':
+                newNode.x = xCenter - 175;
+                newNode.y = yCenter - 200;
+                break;
+            
+            case 'B':
+                newNode.x = xCenter + 175;
+                newNode.y = yCenter - 200;
+                break;
+
+            case 'C':
+                newNode.x = xCenter - 175;
+                newNode.y = yCenter + 200;
+                break;
+
+            case 'D':
+                newNode.x = xCenter + 175;
+                newNode.y = yCenter + 200;
+                break;
+
+            case 'E':
+                newNode.x = xCenter - 300;
+                newNode.y = yCenter + 0;
+                break;
+
+            case 'F':
+                newNode.x = xCenter + 300;
+                newNode.y = yCenter + 0;
+                break;
+        }
+
         mapOfNodes[letter] = newNode;
     }
+
 }
 
 function initializeConnection()
