@@ -3,6 +3,7 @@ var mapOfNodes = {};
 var xCenter = window.innerWidth/4;
 var yCenter = window.innerHeight/2;
 var oldData;
+var stepCounter = 0;
 
 //will be used to add event listeners to any DOMs that need to be interacted with
 window.onload = function()
@@ -28,7 +29,29 @@ window.onload = function()
         oldData = mapOfNodes;
         //applyPreAlgorithmScan();
     });
-
+    //keystroke listener
+    window.onkeyup = function(e)
+     {
+        var key = e.keyCode ? e.keyCode : e.which;
+     
+        if (key == 32) 
+        {
+            if (stepCounter < numNodes)
+            {
+                applyPreAlgorithmScan();
+                oldData = mapOfNodes;
+                drawDisplayInfo();
+                stepCounter += 1;
+            }
+            else
+            {
+                removeExtraConections();
+                clear();
+                redraw();   
+            }   
+        }
+     }
+     //end of listender
     initializeNodes();
     oldData = mapOfNodes;
     initializeConnection();
@@ -101,7 +124,7 @@ function drawConnection()
     //draw lines
 
     var currentLetter = 'A';
-
+    
     for (var i = 0; i < numNodes; i++)
     {
         for (var j = 0; j < mapOfNodes[currentLetter].listOfLinkedNodes.length; j++)
@@ -118,7 +141,7 @@ function drawConnection()
     strokeCap(ROUND);
     line(sixCords[node1-1].x, sixCords[node1-1].y, sixCords[node2-1].x, sixCords[node2-1].y);*/
 }
-
+/*
 function mousePressed() 
 {
     var currentLetter = 'A';
@@ -137,7 +160,7 @@ function mousePressed()
         currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + i);
     }
 }
-
+*/
 
 function drawDisplayInfo()
 {
@@ -153,6 +176,7 @@ function drawDisplayInfo()
 
         if (oldData[currentLetter].rootIs != mapOfNodes[currentLetter].rootIs)
         {
+            alert("ASDF");
             stringBuilder += "Root Is: " + "<span style='color:#FF0000'>" + mapOfNodes[currentLetter].rootIs + "</span>" + "... ";
         }
         else
